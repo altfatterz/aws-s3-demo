@@ -39,10 +39,7 @@ public class DemoApplication implements CommandLineRunner {
         // Otherwise: (Service: Amazon S3; Status Code: 301; Error Code: PermanentRedirect)
         amazonS3.setRegion(Region.getRegion(Regions.EU_WEST_1));
 
-        Resource resource = context.getResource("classpath:car.jpeg");
-
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentDisposition("attachment; filename=" + resource.getFilename());
+        Resource resource = context.getResource("classpath:mountains.jpg");
 
         TransferManager transferManager = new TransferManager(amazonS3);
 
@@ -52,6 +49,7 @@ public class DemoApplication implements CommandLineRunner {
         upload(transferManager, resource, SMALL, id);
         upload(transferManager, resource, BIG, id);
         upload(transferManager, resource, BIG_RETINA, id);
+        upload(transferManager, resource, ORIGINAL, id);
     }
 
 
@@ -77,7 +75,7 @@ public class DemoApplication implements CommandLineRunner {
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentDisposition("attachment; filename=" + resource.getFilename());
 
-            Upload upload = transferManager.upload("elerna", id + "/" + fixedSizeThumbnail.name(), is2, objectMetadata);
+            Upload upload = transferManager.upload("elerna", id + "/" + fixedSizeThumbnail.name().toLowerCase(), is2, objectMetadata);
 
             try {
                 upload.waitForUploadResult();
