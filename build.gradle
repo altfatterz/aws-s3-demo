@@ -32,8 +32,8 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.cloud:spring-cloud-starter-aws")
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("net.coobird:thumbnailator:0.4.8")
-
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 

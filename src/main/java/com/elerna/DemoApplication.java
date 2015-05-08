@@ -21,7 +21,7 @@ import java.util.UUID;
 import static com.elerna.FixedSizeThumbnail.*;
 
 @SpringBootApplication
-public class DemoApplication implements CommandLineRunner {
+public class DemoApplication { // implements CommandLineRunner {
 
     @Autowired
     private AmazonS3 amazonS3;
@@ -33,24 +33,24 @@ public class DemoApplication implements CommandLineRunner {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-
-        // Otherwise: (Service: Amazon S3; Status Code: 301; Error Code: PermanentRedirect)
-        amazonS3.setRegion(Region.getRegion(Regions.EU_WEST_1));
-
-        Resource resource = context.getResource("classpath:mountains.jpg");
-
-        TransferManager transferManager = new TransferManager(amazonS3);
-
-        String id = UUID.randomUUID().toString();
-
-        upload(transferManager, resource, ICON, id);
-        upload(transferManager, resource, SMALL, id);
-        upload(transferManager, resource, BIG, id);
-        upload(transferManager, resource, BIG_RETINA, id);
-        upload(transferManager, resource, ORIGINAL, id);
-    }
+//    @Override
+//    public void run(String... args) throws Exception {
+//
+//        // Otherwise: (Service: Amazon S3; Status Code: 301; Error Code: PermanentRedirect)
+//        amazonS3.setRegion(Region.getRegion(Regions.EU_WEST_1));
+//
+//        Resource resource = context.getResource("classpath:mountains.jpg");
+//
+//        TransferManager transferManager = new TransferManager(amazonS3);
+//
+//        String id = UUID.randomUUID().toString();
+//
+//        upload(transferManager, resource, ICON, id);
+//        upload(transferManager, resource, SMALL, id);
+//        upload(transferManager, resource, BIG, id);
+//        upload(transferManager, resource, BIG_RETINA, id);
+//        upload(transferManager, resource, ORIGINAL, id);
+//    }
 
 
     private void upload(TransferManager transferManager, Resource resource, FixedSizeThumbnail fixedSizeThumbnail, String id) throws IOException, InterruptedException {
